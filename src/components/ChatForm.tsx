@@ -48,23 +48,23 @@ export const ChatForm: React.FC<ChatFormProps> = ({ onMessageSent }) => {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="bg-white border-t border-gray-200 p-4">
+    <form onSubmit={handleSubmit} className="bg-white border-t border-blue-200 p-4">
       {state.result === "error" && (
         <div className="w-full mb-4 text-red-500">{state.message}</div>
       )}
-      <div className="flex space-x-2">
+      <div className="flex space-x-2 max-w-3xl mx-auto">
         <input
           id="userMessage"
           name="userMessage"
           type="text"
           value={inputMessage}
           onChange={(e) => setInputMessage(e.target.value)}
-          className="flex-grow border rounded-lg p-2"
+          className="flex-grow border border-blue-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
           placeholder="メッセージを入力..."
         />
         <button
           type="submit"
-          className="bg-orange-500 text-white px-4 py-2 rounded-lg"
+          className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-200"
           disabled={pending}
         >
           {pending ? "送信中..." : "送信"}
