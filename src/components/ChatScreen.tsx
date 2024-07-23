@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect, useRef } from "react";
 import { ChatForm } from "./ChatForm";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -9,10 +9,15 @@ type Chat = { id: string; message: string; sender: "user" | "ai" };
 
 export const ChatScreen: React.FC = () => {
   const [chatHistory, setChatHistory] = useState<Chat[]>([]);
+  const endOfChatRef = useRef<HTMLDivElement | null>(null);
 
   const addMessage = useCallback((message: string, sender: "user" | "ai") => {
     setChatHistory((prev) => [...prev, { id: Date.now().toString(), message, sender }]);
   }, []);
+
+  useEffect(() => {
+    endOfChatRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [chatHistory]);
 
   return (
     <div className="flex flex-col h-screen bg-blue-50">
@@ -41,6 +46,7 @@ export const ChatScreen: React.FC = () => {
               </div>
             </div>
           ))}
+          <div ref={endOfChatRef} />
         </div>
       </div>
       <ChatForm onMessageSent={addMessage} />
